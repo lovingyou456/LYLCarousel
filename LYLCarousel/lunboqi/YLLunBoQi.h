@@ -8,9 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-//轮播器定时器调用时间间隔(秒)
-#define YL_LUNBOQI_TIMER_TIME_INTERVAL  3.0
-
 @class YLLunBoQi;
 
 @protocol YLLunBoQiDelegate <NSObject>
@@ -31,13 +28,22 @@
 
 @interface YLLunBoQi : UIView
 
+/** 图片轮播器中所包含的图片的数组 */
+@property(nonatomic, strong) NSArray * imageUrls;
+
+/** 加载网络图片时的占位图片 */
+@property(nonatomic, copy) NSString * placeholderImageName;
+
+/** 轮播器的事件代理 */
+@property(nonatomic, weak) id<YLLunBoQiDelegate> delegate;
 
 /**
- 图片轮播器中所包含的图片的数组
- */
-@property(nonatomic, strong) NSArray * images;
+ 使用轮播器切换时间间隔初始化轮播器对象
 
-@property(nonatomic, weak) id<YLLunBoQiDelegate> delegate;
+ @param timeInterVal 轮播器图片更换调用时间间隔(秒)
+ @return 轮播器对象
+ */
+-(instancetype)initWithTimeInterval:(NSTimeInterval)timeInterVal;
 
 
 @end

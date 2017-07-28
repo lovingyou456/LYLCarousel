@@ -13,7 +13,6 @@
 		123079161F2ADB9C00701643 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 123079141F2ADB9C00701643 /* Main.storyboard */; };
 		123079181F2ADB9C00701643 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 123079171F2ADB9C00701643 /* Assets.xcassets */; };
 		1230791B1F2ADB9C00701643 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 123079191F2ADB9C00701643 /* LaunchScreen.storyboard */; };
-		123079271F2AE21900701643 /* testView.m in Sources */ = {isa = PBXBuildFile; fileRef = 123079241F2AE21900701643 /* testView.m */; };
 		123079281F2AE21900701643 /* YLLunBoQi.m in Sources */ = {isa = PBXBuildFile; fileRef = 123079261F2AE21900701643 /* YLLunBoQi.m */; };
 		123079321F2AE24000701643 /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1230792A1F2AE24000701643 /* 1.jpg */; };
 		123079331F2AE24000701643 /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1230792B1F2AE24000701643 /* 2.jpg */; };
@@ -23,6 +22,7 @@
 		123079371F2AE24000701643 /* 6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1230792F1F2AE24000701643 /* 6.jpg */; };
 		123079381F2AE24000701643 /* 7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 123079301F2AE24000701643 /* 7.jpg */; };
 		123079391F2AE24000701643 /* 8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 123079311F2AE24000701643 /* 8.jpg */; };
+		B8FFED89FAD9570D7B564566 /* libPods-LYLCarousel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D81EECAAA0FC3F5762D77BE7 /* libPods-LYLCarousel.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,8 +36,6 @@
 		123079171F2ADB9C00701643 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1230791A1F2ADB9C00701643 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1230791C1F2ADB9C00701643 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		123079231F2AE21900701643 /* testView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testView.h; sourceTree = "<group>"; };
-		123079241F2AE21900701643 /* testView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testView.m; sourceTree = "<group>"; };
 		123079251F2AE21900701643 /* YLLunBoQi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLLunBoQi.h; sourceTree = "<group>"; };
 		123079261F2AE21900701643 /* YLLunBoQi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLLunBoQi.m; sourceTree = "<group>"; };
 		1230792A1F2AE24000701643 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
@@ -48,6 +46,9 @@
 		1230792F1F2AE24000701643 /* 6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 6.jpg; sourceTree = "<group>"; };
 		123079301F2AE24000701643 /* 7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 7.jpg; sourceTree = "<group>"; };
 		123079311F2AE24000701643 /* 8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 8.jpg; sourceTree = "<group>"; };
+		5F4B942E67C812C2160F31EC /* Pods-LYLCarousel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYLCarousel.release.xcconfig"; path = "Pods/Target Support Files/Pods-LYLCarousel/Pods-LYLCarousel.release.xcconfig"; sourceTree = "<group>"; };
+		D81EECAAA0FC3F5762D77BE7 /* libPods-LYLCarousel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LYLCarousel.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5EE668312AA254D1C5BE605 /* Pods-LYLCarousel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LYLCarousel.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LYLCarousel/Pods-LYLCarousel.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,17 +56,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8FFED89FAD9570D7B564566 /* libPods-LYLCarousel.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F7B4848BA5E5C7F4F98A319 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E5EE668312AA254D1C5BE605 /* Pods-LYLCarousel.debug.xcconfig */,
+				5F4B942E67C812C2160F31EC /* Pods-LYLCarousel.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		123078FF1F2ADB9C00701643 = {
 			isa = PBXGroup;
 			children = (
 				1230790A1F2ADB9C00701643 /* LYLCarousel */,
 				123079091F2ADB9C00701643 /* Products */,
+				0F7B4848BA5E5C7F4F98A319 /* Pods */,
+				D2805BD44B90124B4567611D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -106,8 +119,6 @@
 		123079221F2AE21900701643 /* lunboqi */ = {
 			isa = PBXGroup;
 			children = (
-				123079231F2AE21900701643 /* testView.h */,
-				123079241F2AE21900701643 /* testView.m */,
 				123079251F2AE21900701643 /* YLLunBoQi.h */,
 				123079261F2AE21900701643 /* YLLunBoQi.m */,
 			);
@@ -129,6 +140,14 @@
 			path = images;
 			sourceTree = "<group>";
 		};
+		D2805BD44B90124B4567611D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D81EECAAA0FC3F5762D77BE7 /* libPods-LYLCarousel.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -136,9 +155,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1230791F1F2ADB9C00701643 /* Build configuration list for PBXNativeTarget "LYLCarousel" */;
 			buildPhases = (
+				25BCDFBAD285614557FE6DA7 /* [CP] Check Pods Manifest.lock */,
 				123079041F2ADB9C00701643 /* Sources */,
 				123079051F2ADB9C00701643 /* Frameworks */,
 				123079061F2ADB9C00701643 /* Resources */,
+				132686FAFFD7F4C68CEE494E /* [CP] Embed Pods Frameworks */,
+				BDB6F4B398FB3BC57BDE3A5D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -203,12 +225,59 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		132686FAFFD7F4C68CEE494E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LYLCarousel/Pods-LYLCarousel-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		25BCDFBAD285614557FE6DA7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BDB6F4B398FB3BC57BDE3A5D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LYLCarousel/Pods-LYLCarousel-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		123079041F2ADB9C00701643 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				123079271F2AE21900701643 /* testView.m in Sources */,
 				123079131F2ADB9C00701643 /* ViewController.m in Sources */,
 				123079281F2AE21900701643 /* YLLunBoQi.m in Sources */,
 				123079101F2ADB9C00701643 /* AppDelegate.m in Sources */,
@@ -332,6 +401,7 @@
 		};
 		123079201F2ADB9C00701643 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5EE668312AA254D1C5BE605 /* Pods-LYLCarousel.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = LYLCarousel/Info.plist;
@@ -343,6 +413,7 @@
 		};
 		123079211F2ADB9C00701643 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F4B942E67C812C2160F31EC /* Pods-LYLCarousel.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = LYLCarousel/Info.plist;
@@ -371,6 +442,7 @@
 				123079211F2ADB9C00701643 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

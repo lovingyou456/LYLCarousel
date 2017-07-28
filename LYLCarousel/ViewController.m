@@ -19,7 +19,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    YLLunBoQi *lunboqi = [YLLunBoQi new];
+    YLLunBoQi *lunboqi = [[YLLunBoQi alloc] initWithTimeInterval:3.0];
     
     CGFloat x = 20;
     CGFloat y = 20;
@@ -29,14 +29,19 @@
     
     ;
     
-    [lunboqi setImages:@[[UIImage imageWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"1.jpg" ofType:nil]]],
-                         [UIImage imageWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"2.jpg" ofType:nil]]],
-                         [UIImage imageWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"3.jpg" ofType:nil]]],
-                         [UIImage imageWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"4.jpg" ofType:nil]]],
-                         [UIImage imageWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"5.jpg" ofType:nil]]],
-                         [UIImage imageWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"6.jpg" ofType:nil]]],
-                         [UIImage imageWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"7.jpg" ofType:nil]]],
-                         [UIImage imageWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"8.jpg" ofType:nil]]]]];
+    lunboqi.placeholderImageName = @"6.jpg";
+        
+    [lunboqi setImageUrls:@[@"http://pic1.win4000.com/wallpaper/8/539fa4d37594c.jpg",
+                            @"http://b.hiphotos.baidu.com/image/pic/item/9a504fc2d5628535b452cae099ef76c6a6ef6344.jpg",
+                            @"http://bizhi.zhuoku.com/wall/jie/20070330/ml/022.jpg",
+                            @"http://img.tuku.cn/file_big/201503/d8905515d1c046aeba51025f0ea842f0.jpg",
+                            @"http://pic10.nipic.com/20100929/4308872_150108084472_2.jpg",
+                            @"http://tupian.enterdesk.com/2014/mxy/02/11/4/4.jpg",
+                            @"http://www.pp3.cn/uploads/201606/20160630011.jpg",
+                            @"http://img.zcool.cn/community/05e5e1554af04100000115a8236351.jpg",
+                            @"http://image.elegantliving.ceconline.com/320000/320100/20110815_03_52.jpg",
+                            @"http://f.hiphotos.baidu.com/image/pic/item/80cb39dbb6fd5266953d8467a118972bd40736aa.jpg"
+                            ]];
     
     [lunboqi setDelegate:self];
     

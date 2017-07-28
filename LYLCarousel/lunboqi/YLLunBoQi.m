@@ -7,176 +7,49 @@
 //
 
 #import "YLLunBoQi.h"
+#import "UIButton+WebCache.h"
 
 @interface YLLunBoQi()<UIScrollViewDelegate>
 
-
-/**
- 图片轮播器
- */
+/** 图片轮播器 */
 @property(nonatomic, weak) UIScrollView * scrollView;
 
-
-/**
- 当前显示的图片
- */
+/** 当前显示的图片 */
 @property(nonatomic, assign) NSInteger currentPage;
 
-
-/**
- 前一张图片
- */
+/** 前一张图片 */
 @property(nonatomic, weak) UIButton * imageButton1;
 
-/**
- 当前显示图片
- */
+/** 当前显示图片 */
 @property(nonatomic, weak) UIButton * imageButton2;
 
-
-/**
- 后一张图片
- */
+/** 后一张图片 */
 @property(nonatomic, weak) UIButton * imageButton3;
 
-
-/**
- 图片轮播器定时器
- */
+/** 图片轮播器定时器 */
 @property(nonatomic, strong) NSTimer * timer;
 
-
-/**
- 页数指示器
- */
+/** 页数指示器 */
 @property(nonatomic, weak) UIPageControl * pageControl;
 
-
-/**
- 计时器跳过此次调用
- */
+/** 计时器跳过此次调用 */
 @property(nonatomic, assign, getter=isJumpScheduled) BOOL jumpScheduled;
 
-
-
+/** 轮播器图片更换调用时间间隔(秒) */
+@property(nonatomic, assign) NSTimeInterval timeInterval;
 
 @end
 
 @implementation YLLunBoQi
 
-#pragma mark --懒加载--
-
--(UIPageControl *)pageControl
+-(instancetype)initWithTimeInterval:(NSTimeInterval)timeInterVal
 {
-    if(_pageControl == nil) {
-        UIPageControl * pageControl = [UIPageControl new];
-        
-        [pageControl setUserInteractionEnabled:NO];
-        
-        _pageControl = pageControl;
-        
-        return pageControl;
-    }
-    
-    return _pageControl;
-}
-
--(NSTimer *)timer
-{
-    if(_timer == nil) {
-    
-        _timer = [NSTimer scheduledTimerWithTimeInterval:YL_LUNBOQI_TIMER_TIME_INTERVAL repeats:YES block:^(NSTimer * timer) {
-            if(!self.isJumpScheduled) {
-            
-                [_scrollView setContentOffset:CGPointMake(_scrollView.bounds.size.width * 2, 0) animated:YES];
-            }
-            
-            self.jumpScheduled = NO;
-        }];
-        
-        [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
-    }
-    
-    return _timer;
-}
-
--(UIButton *)imageButton1
-{
-    if(_imageButton1 == nil) {
-        UIButton * imageButton1 = [UIButton new];
-        
-        [imageButton1 setAdjustsImageWhenHighlighted:NO];
-        
-        _imageButton1 = imageButton1;
-        
-        return imageButton1;
-    }
-    
-    return _imageButton1;
-}
-
--(UIButton *)imageButton2
-{
-    if(_imageButton2 == nil) {
-        UIButton * imageButton2 = [UIButton new];
-        
-        [imageButton2 setAdjustsImageWhenHighlighted:NO];
-        
-        [imageButton2 addTarget:self action:@selector(didButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        
-        _imageButton2 = imageButton2;
-        
-        return imageButton2;
-    }
-    
-    return _imageButton2;
-}
-
--(UIButton *)imageButton3
-{
-    if(_imageButton3 == nil) {
-        UIButton * imageButton3 = [UIButton new];
-        
-        [imageButton3 setAdjustsImageWhenHighlighted:NO];
-        
-        _imageButton3 = imageButton3;
-        
-        return imageButton3;
-    }
-    
-    return _imageButton3;
-}
-
--(UIScrollView *)scrollView
-{
-    if(_scrollView == nil) {
-        UIScrollView * scrollView = [UIScrollView new];
-        [scrollView setBackgroundColor:[UIColor clearColor]];
-        [scrollView setPagingEnabled:YES];
-        [scrollView setScrollEnabled:YES];
-        [scrollView setShowsVerticalScrollIndicator:NO];
-        [scrollView setShowsHorizontalScrollIndicator:NO];
-            
-        [scrollView setDelegate:self];
-        
-        [scrollView addSubview:self.imageButton1];
-        [scrollView addSubview:self.imageButton2];
-        [scrollView addSubview:self.imageButton3];
-        
-        _scrollView = scrollView;
-        
-        return scrollView;
-    }
-    
-    return _scrollView;
-}
-
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame: frame];
-    if (self) {
+    self = [super init];
+    if(self) {
+        self.timeInterval = timeInterVal;
         [self initSubViews];
     }
+    
     return self;
 }
 
@@ -221,15 +94,14 @@
 }
 
 #pragma mark --重写set方法--
--(void)setImages:(NSArray *)images
+-(void)setImageUrls:(NSArray *)imageUrls
 {
-    _images = images;
+    _imageUrls = imageUrls;
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         self.currentPage = 0;
-        [self.pageControl setNumberOfPages:images.count];
+        [self.pageControl setNumberOfPages:imageUrls.count];
     });
-    
 }
 
 -(void)setCurrentPage:(NSInteger)currentPage
@@ -248,9 +120,9 @@
         index2 = _currentPage;
         
         if(_currentPage == 0) {
-            index1 = _images.count - 1;
+            index1 = self.imageUrls.count - 1;
             index3 = _currentPage + 1;
-        }else if(_currentPage == _images.count - 1) {
+        }else if(_currentPage == self.imageUrls.count - 1) {
             index1 = _currentPage - 1;
             index3 = 0;
         }else {
@@ -258,9 +130,11 @@
             index3 = _currentPage + 1;
         }
         
-        [self.imageButton1 setImage:_images[index1] forState:UIControlStateNormal];
-        [self.imageButton2 setImage:_images[index2] forState:UIControlStateNormal];
-        [self.imageButton3 setImage:_images[index3] forState:UIControlStateNormal];
+        UIImage *placeHolderImage = [UIImage imageNamed:self.placeholderImageName];
+        
+        [self.imageButton1 sd_setImageWithURL:[NSURL URLWithString:self.imageUrls[index1]] forState:UIControlStateNormal placeholderImage:placeHolderImage];
+        [self.imageButton2 sd_setImageWithURL:[NSURL URLWithString:self.imageUrls[index2]] forState:UIControlStateNormal placeholderImage:placeHolderImage];
+        [self.imageButton3 sd_setImageWithURL:[NSURL URLWithString:self.imageUrls[index3]] forState:UIControlStateNormal placeholderImage:placeHolderImage];
         
         [self.scrollView setContentOffset:CGPointMake(self.scrollView.frame.size.width, 0) animated:NO];
         
@@ -276,13 +150,13 @@
     if(currentpage == 0) {
         
         if(_currentPage == 0) {
-            _currentPage = _images.count;
+            _currentPage = self.imageUrls.count;
         }
         
         _currentPage--;
     }else if(currentpage == 2) {
         
-        if(_currentPage == _images.count - 1) {
+        if(_currentPage == self.imageUrls.count - 1) {
             _currentPage = -1;
         }
         
@@ -308,14 +182,14 @@
     if(index < 0.0) {
         
         if(_currentPage == 0) {
-            [self.pageControl setCurrentPage:_images.count - 1];
+            [self.pageControl setCurrentPage:self.imageUrls.count - 1];
         }else {
             [self.pageControl setCurrentPage:_currentPage + index];
         }
         
     }else if(index > 1.0){
         
-        if(_currentPage == _images.count - 1) {
+        if(_currentPage == self.imageUrls.count - 1) {
             [self.pageControl setCurrentPage:0];
         }else {
             [self.pageControl setCurrentPage:_currentPage + index];
@@ -339,5 +213,119 @@
     
     [self.timer setFireDate:[NSDate distantPast]];
 }
+
+#pragma mark --懒加载--
+
+-(UIPageControl *)pageControl
+{
+    if(_pageControl == nil) {
+        UIPageControl * pageControl = [UIPageControl new];
+        
+        [pageControl setUserInteractionEnabled:NO];
+        
+        _pageControl = pageControl;
+        
+        return pageControl;
+    }
+    
+    return _pageControl;
+}
+
+-(NSTimer *)timer
+{
+    if(_timer == nil) {
+        
+        _timer = [NSTimer scheduledTimerWithTimeInterval:self.timeInterval <= 0.1 ? 3.0 : self.timeInterval repeats:YES block:^(NSTimer * timer) {
+            if(!self.isJumpScheduled) {
+                
+                [_scrollView setContentOffset:CGPointMake(_scrollView.bounds.size.width * 2, 0) animated:YES];
+            }
+            
+            self.jumpScheduled = NO;
+        }];
+        
+        [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+    }
+    
+    return _timer;
+}
+
+-(UIButton *)imageButton1
+{
+    if(_imageButton1 == nil) {
+        UIButton * imageButton1 = [UIButton new];
+        
+        [imageButton1 setAdjustsImageWhenHighlighted:NO];
+        [imageButton1.imageView.layer setMasksToBounds:YES];
+        [imageButton1.imageView setContentMode:UIViewContentModeScaleAspectFill];
+        _imageButton1 = imageButton1;
+        
+        return imageButton1;
+    }
+    
+    return _imageButton1;
+}
+
+-(UIButton *)imageButton2
+{
+    if(_imageButton2 == nil) {
+        UIButton * imageButton2 = [UIButton new];
+        
+        [imageButton2 setAdjustsImageWhenHighlighted:NO];
+        
+        [imageButton2.imageView.layer setMasksToBounds:YES];
+        [imageButton2.imageView setContentMode:UIViewContentModeScaleAspectFill];
+        
+        [imageButton2 addTarget:self action:@selector(didButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
+        _imageButton2 = imageButton2;
+        
+        return imageButton2;
+    }
+    
+    return _imageButton2;
+}
+
+-(UIButton *)imageButton3
+{
+    if(_imageButton3 == nil) {
+        UIButton * imageButton3 = [UIButton new];
+        
+        [imageButton3 setAdjustsImageWhenHighlighted:NO];
+        [imageButton3.imageView.layer setMasksToBounds:YES];
+        [imageButton3.imageView setContentMode:UIViewContentModeScaleAspectFill];
+        
+        _imageButton3 = imageButton3;
+        
+        return imageButton3;
+    }
+    
+    return _imageButton3;
+}
+
+-(UIScrollView *)scrollView
+{
+    if(_scrollView == nil) {
+        UIScrollView * scrollView = [UIScrollView new];
+        [scrollView setBackgroundColor:[UIColor clearColor]];
+        [scrollView setPagingEnabled:YES];
+        [scrollView setScrollEnabled:YES];
+        [scrollView setShowsVerticalScrollIndicator:NO];
+        [scrollView setShowsHorizontalScrollIndicator:NO];
+        
+        [scrollView setDelegate:self];
+        
+        [scrollView addSubview:self.imageButton1];
+        [scrollView addSubview:self.imageButton2];
+        [scrollView addSubview:self.imageButton3];
+        
+        _scrollView = scrollView;
+        
+        return scrollView;
+    }
+    
+    return _scrollView;
+}
+
 
 @end
